@@ -1,0 +1,8 @@
+html[data-bs-theme="light"] > body > nav {
+	margin-bottom: 10px;
+	box-shadow: 2px 2px 4px 2px #dddddd;
+}
+html[data-bs-theme="dark"] > body > nav {
+	margin-bottom: 10px;
+	box-shadow: 2px 2px 4px 2px #222222;
+}
