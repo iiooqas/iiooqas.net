@@ -29,6 +29,8 @@ var wortartOrderDisplay = {
 	"a": "ADJ",
 	"ap": "ADJ",
 	"aa": "ADJ",
+	"aqal": "ADJ",
+	"aqan": "ADJ",
 	"des": "DES",
 	"z": "NR",
 	"e": "UNIT",

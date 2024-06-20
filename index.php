@@ -25,8 +25,17 @@ if(isset($_GET['lang'])){
 	$lang = $_GET['lang'];
 	$_SESSION['lang'] = $lang;
 }
+$langid = 1;
+if($lang == "en") $langid = 2;
+if($lang == "iiooen") $langid = 1;
+if($lang == "iioode") $langid = 2;
 
-function translate($en, $lang){
+function translatep($en, $lang, $param) {
+	$tr = translate($en, $lang);
+	//replace the placeholder % by the parameter
+	return str_replace("%", $param, $tr);
+}
+function translate($en, $lang) {
 	if($lang == "en") return $en;
 	$translations = array(
 		"de" => array(
@@ -44,13 +53,20 @@ function translate($en, $lang){
 			"Automatic" => "Automatisch",
 			"Imprint" => "Impressum",
 			"Data protection" => "Datenschutz",
+			"Search in % words" => "Suche in % Wörtern",
+			"iiooqas" => "iiooqas"
 		),
 		"iiooen" => array(
 			"Dictionary" => "nufterogli",
+			"Home" => "mnitisza",
+			"Learn" => "qiztol",
+			"Other" => "ikqal",
+			"Light" => "irtrach",
 			"Dark" => "hellt",
 			"Language" => "larxas",
-			"Learn" => "qiztol",
-			"Home" => "mnitisza"
+			"Automatic" => "lavtras",
+			"Search in % words" => "gachtaan za % hitiré",
+			"iiooqas" => "iioofikial"
 		)
 	);
 	$translations["iioode"] = $translations["iiooen"];
@@ -59,9 +75,13 @@ function translate($en, $lang){
 	}
 	return $en;
 }
-function t($en){
+function t($en) {
 	global $lang;
 	echo translate($en, $lang);
+}
+function tp($en, $param) {
+	global $lang;
+	echo translatep($en, $lang, $param);
 }
 ?><!DOCTYPE html>
 <html data-bs-theme="dark">

@@ -62,4 +62,10 @@ button {
 	margin-top: 8px;
 	margin-bottom: 5px;
 }
+html[data-bs-theme="dark"] label {
+	color: white !important;
+}
+html[data-bs-theme="light"] label {
+	color: black !important;
+}
 </style>

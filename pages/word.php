@@ -30,6 +30,8 @@ var wortartOrderDisplay = {
 	"ap": "ADJ",
 	"aa": "ADJ",
 	"des": "DES",
+	"aqal": "ADJ",
+	"aqan": "ADJ",
 	"z": "NR",
 	"e": "UNIT",
 	"p": "PHRASE",
