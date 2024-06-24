@@ -39,10 +39,11 @@ var wortartOrderDisplay = {
 	"": ""
 }
 var highlightedWords = [];
+<?php if(!isset($_GET['word'])) die("no word provided!</script></div></div></body></html>"); ?>
 </script>
 
 <audio id="audio_1">
-	<source src="audio/aaltéér.mp3" type="audio/mp3" preload="none">
+	<source src="audio/<?php echo $_GET['word']; ?>.mp3" type="audio/mp3" preload="none">
 </audio>
 
 <section class="section">
@@ -69,17 +70,119 @@ function details(word) {
 	$.ajax({url:"iiooqas/api/dict_getdetails.php?word=" + word, success:(x) => details2(x)});
 }
 
+function grammar_plural(word){
+	if(word == "artainne") return "artainneé";
+	if(word[word.length-1] == "é")
+		return word.substr(0, word.length-1) + "eé";
+	return word+"é";
+}
+
+function appendEnding(word, ending) {
+	//if the word ends in a single wovel, replace it with the ending
+	var wovels = "aeiouäé";
+	if(word.length < 2) return word+ending;
+	if(wovels.includes(word[word.length-1]) && word[word.length-2] != word[word.length-1]){
+		return word.substring(0, word.length-1)+ending;
+	} else {
+		return word+ending;
+	}
+}
+
+function prepend(a, b){
+	if(a == "kra" && b[0] == "a" && b[1] != "a") return prepend("kr", b);
+	return a+b;
+}
+
+function removeLastLetter(word) {
+	//if the word ends in chr, ch, aa, ee, éé, ii, oo, uu, ss or pf, remove that part of the word instead of the last letter
+	if(word.length > 2 && word.slice(-3) == "chr")
+		return word.substring(0, word.length-3);
+	if(word.length > 1 && ["ch", "aa", "ee", "éé", "ii", "oo", "uu", "ss", "pf"].includes(word.slice(-2)))
+		return word.substring(0, word.length-2);
+	return word.substring(0, word.length-1);
+}
+
+function appendEndingToFirstWord(word, ending) {
+	var spl = word.split(" ");
+	spl[0] = appendEnding(spl[0], ending);
+	return spl.join(" ");
+}
+
+function genNounGrammar(word){
+	return `Noun forms:<br/>
+	<table class='table'><tr><td><b>${word}</b> singular</td><td><b>${grammar_plural(word)}</b> plural</td>
+	<td><b>${grammar_plural(word)+"nes"}</b> numbered plural</td></tr></table>`;
+}
+
+function genVerbGrammar(word){
+	var table = `i aa li u
+arv rulnmf erv urv
+a at rit u
+eedt ardt addt 
+tel tal lep tul
+tep tap terp tup
+tas taas tes tus
+sal frig séél sul
+ä us äs äu
+ip ap lip up
+arvp rulp erp urp
+ap arp rip up
+geep arp aap 
+telp talp leep tulp
+teep tap teerp tuup
+tasp taap tep tup
+salp frip séép sulp
+äp up äp äp`.split("\n").map(a=>a.split(" "));
+	var html = `Verb forms:<br/>
+	<table class='table'>
+	<th><td>present</td><td>past</td><td>future</td><td>undefined time</td><td>probable future</td></th>`;
+	for(var i=0;i<table.length;++i) {
+		html += "<tr>";
+		html += "<td>"+`1.P. singular active;2.P. singular active;3.P. singular active;3.P undefined singular active;inclusive 1.P. plural active;exclusive 1.P. plural active;all-encompassing 1.P. plural active;2.P. plural active;3.P. plural active;1.P. singular passive;2.P. singular passive;3.P. singular passive;3.P undefined singular passive;inclusive 1.P. plural passive;exclusive 1.P. plural passive;all-encompassing 1.P. plural passive;2.P. plural passive;3.P. plural passive`.split(";")[i]+"</td>";
+		for(var j=0;j<table[i].length;++j){
+			html += "<td>";
+			if(table[i][j] != "") html += appendEnding(word, table[i][j]);
+			html += "</td>";
+		}
+		html += "<td>"+prepend("kra",appendEnding(word, table[i][0]))+"</td>";
+		html += "</tr>";
+	}
+	return html + "</table>";
+}
+
+function genAdjectiveGrammar(word){
+	return `Adjective forms:<br/>
+	<table class='table'>
+		<tr>
+			<td>${appendEnding(word, "ut")} - quantitative 1</td>
+			<td>${appendEnding(word, "u")} - quantitative 2</td>
+			<td>${appendEnding(word, "ot")} - quantitative 3</td>
+			<td>${appendEnding(word, "it")} - quantitative -1</td>
+		</tr>
+		<tr>
+			<td>${appendEnding(word, "ast")} - qualitative 1</td>
+			<td>${appendEnding(word, "ist")} - qualitative -1</td>
+		</tr>
+	</table>
+	`;
+}
+var languagesnames = ["error", "DE", "EN", "EO"];
 function details2(json) {
 	var html = "";
 	var word = json.words[0];
 	html += word.word + " (" + word.syllables + (word.pronounciation != "" ? ", pronounced as " + word.pronounciation : "") + ")<br/>";
-	html += "added on "+word.date+" by "+json.author.filter(a=>a.id == word.author)[0].displayname+"<br/>";
+	html += "<?php echo t("added on");?> "+word.date+" by "+json.author.filter(a=>a.id == word.author)[0].displayname+"<br/>";
 	html += word.comment ? "Comment: "+word.comment+"<br/>" : "";
-	html += "<br/>Translations:<br/>";
+	html += "<br/>Translations:<table class='table'>";
 	for(var i = 0; i < json.translations.length; i++) {
 		var translation = json.translations[i];
-		html += "<b>"+translation.language+":</b> "+translation.translation+"<br/>";
+		html += "<tr><td><b>"+languagesnames[translation.language]+":</b> "+translation.translation+"</td><td>"+[...json.author.filter(a=>a.id == translation.author),{"displayname":""}][0].displayname+"</td><td>"+translation.date+"</td></tr>";
 	}
+	html += "</table>";
+	html += "<br/><br/><hr/>";
+	html += genNounGrammar(word.word);
+	html += genVerbGrammar(word.word);
+	html += genAdjectiveGrammar(word.word);
 	document.getElementById("content").innerHTML = html;
 }
 

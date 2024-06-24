@@ -125,10 +125,10 @@ $active = ' active" aria-current="page';
 						<?php t("Language"); ?>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="?page=<?php echo $page;?>&lang=en">English</a></li>
-						<li><a class="dropdown-item" href="?page=<?php echo $page;?>&lang=de">Deutsch</a></li>
-						<li><a class="dropdown-item" href="?page=<?php echo $page;?>&lang=iiooen">iioofikial (EN)</a></li>
-						<li><a class="dropdown-item" href="?page=<?php echo $page;?>&lang=iioode">iioofikial (DE)</a></li>
+						<li><a class="dropdown-item" href="?page=<?php echo $page; if(isset($_GET["word"])) echo "&word=".$_GET["word"]; ?>&lang=en">English</a></li>
+						<li><a class="dropdown-item" href="?page=<?php echo $page; if(isset($_GET["word"])) echo "&word=".$_GET["word"]; ?>&lang=de">Deutsch</a></li>
+						<li><a class="dropdown-item" href="?page=<?php echo $page; if(isset($_GET["word"])) echo "&word=".$_GET["word"]; ?>&lang=iiooen">iioofikial (EN)</a></li>
+						<li><a class="dropdown-item" href="?page=<?php echo $page; if(isset($_GET["word"])) echo "&word=".$_GET["word"]; ?>&lang=iioode">iioofikial (DE)</a></li>
 					</ul>
 				</li>
 			<li class="nav-item dropdown">

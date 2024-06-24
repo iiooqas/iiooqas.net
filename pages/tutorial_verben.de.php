@@ -16,7 +16,7 @@ Verben sind das Wort im Wörterbuch mit einer der folgenden Endungen:
 	<tr>
 		<td>Ich</td>
 		<td>i</td>
-		<td>a</td>
+		<td>aa</td>
 		<td>li</td>
 		<td>u</td>
 	</tr>

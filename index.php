@@ -1,6 +1,7 @@
 <?php
 session_start();
 //$_SESSION['allow'] = true;
+if(isset($_GET["allowme"])) $_SESSION["allow"] = 1;
 if(!isset($_SESSION['allow']))
 	die("coming soon...");
 
@@ -54,7 +55,8 @@ function translate($en, $lang) {
 			"Imprint" => "Impressum",
 			"Data protection" => "Datenschutz",
 			"Search in % words" => "Suche in % Wörtern",
-			"iiooqas" => "iiooqas"
+			"iiooqas" => "iiooqas",
+			"added on" => "hinzugefügt am"
 		),
 		"iiooen" => array(
 			"Dictionary" => "nufterogli",
@@ -66,7 +68,8 @@ function translate($en, $lang) {
 			"Language" => "larxas",
 			"Automatic" => "lavtras",
 			"Search in % words" => "gachtaan za % hitiré",
-			"iiooqas" => "iioofikial"
+			"iiooqas" => "iioofikial",
+			"added on" => "alitrapat gittra"
 		)
 	);
 	$translations["iioode"] = $translations["iiooen"];

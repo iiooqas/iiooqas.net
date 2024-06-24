@@ -25,6 +25,6 @@ jsonifyquery("words", "SELECT * FROM words WHERE words.id = $id" . ($ROLE_VIEW_N
 jsonifyquery("translations", "SELECT * FROM translations WHERE word = $id;");
 jsonifyquery("derivations", "SELECT * FROM derivations WHERE word = $id OR derivedfrom = $id;");
 jsonifyquery("wortfelder", "SELECT * FROM wortfelder WHERE word = $id;");
-jsonifyquery("author", "SELECT id, displayname, iiooname FROM authors WHERE id = (SELECT author FROM words WHERE id = $id);");
+jsonifyquery("author", "SELECT id, displayname, iiooname FROM authors WHERE id = (SELECT author FROM words WHERE id = $id);"); //todo include authors of translations
 echo "}";
 ?>
