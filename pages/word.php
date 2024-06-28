@@ -74,6 +74,9 @@ function grammar_plural(word){
 	if(word == "artainne") return "artainneé";
 	if(word[word.length-1] == "é")
 		return word.substr(0, word.length-1) + "eé";
+	if("ieoau".indexOf(word[word.length-1])>-1 && word[word.length-1] != word[word.length-2]) {
+		return word.substr(0, word.length-1) + "é";
+	}
 	return word+"é";
 }
 
@@ -157,7 +160,8 @@ function genAdjectiveGrammar(word){
 			<td>${appendEnding(word, "ut")} - quantitative 1</td>
 			<td>${appendEnding(word, "u")} - quantitative 2</td>
 			<td>${appendEnding(word, "ot")} - quantitative 3</td>
-			<td>${appendEnding(word, "it")} - quantitative -1</td>
+			<td>${appendEnding(word, "i")} - quantitative -1</td>
+			<td>${appendEnding(word, "it")} - quantitative -2</td>
 		</tr>
 		<tr>
 			<td>${appendEnding(word, "ast")} - qualitative 1</td>
@@ -173,16 +177,20 @@ function details2(json) {
 	html += word.word + " (" + word.syllables + (word.pronounciation != "" ? ", pronounced as " + word.pronounciation : "") + ")<br/>";
 	html += "<?php echo t("added on");?> "+word.date+" by "+json.author.filter(a=>a.id == word.author)[0].displayname+"<br/>";
 	html += word.comment ? "Comment: "+word.comment+"<br/>" : "";
-	html += "<br/>Translations:<table class='table'>";
+	html += "<br/><?php echo t("Translations"); ?>:<table class='table'>";
 	for(var i = 0; i < json.translations.length; i++) {
 		var translation = json.translations[i];
 		html += "<tr><td><b>"+languagesnames[translation.language]+":</b> "+translation.translation+"</td><td>"+[...json.author.filter(a=>a.id == translation.author),{"displayname":""}][0].displayname+"</td><td>"+translation.date+"</td></tr>";
 	}
 	html += "</table>";
 	html += "<br/><br/><hr/>";
-	html += genNounGrammar(word.word);
-	html += genVerbGrammar(word.word);
-	html += genAdjectiveGrammar(word.word);
+	var wordartExists = json.translations.map(b=>wortartOrderDisplay[b.wordtype]);
+	if(wordartExists.indexOf("NN")>=0)
+		html += genNounGrammar(word.word);
+	if(wordartExists.indexOf("VER")>=0)
+		html += genVerbGrammar(word.word);
+	if(wordartExists.indexOf("ADJ")>=0)
+		html += genAdjectiveGrammar(word.word);
 	document.getElementById("content").innerHTML = html;
 }
 

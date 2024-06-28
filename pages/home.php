@@ -18,7 +18,7 @@ if(isset($_GET['id'])){
 				$sql = "SELECT * FROM words WHERE author=".$homeid." ORDER BY date DESC;";
 				$ret = $db->query($sql);
 				while($row = $ret->fetchArray(SQLITE3_ASSOC) ){
-					echo $row['date'].": ".'<a href="?page=word&id='.$row['id'].'">'.($row['word']).'</a><br/>';
+					echo $row['date'].": ".'<a href="?page=word&word='.$row['word'].'">'.($row['word']).'</a><br/>';
 				}
 				?>
 			</div>

@@ -112,9 +112,12 @@ $active = ' active" aria-current="page';
 						<?php t("Other"); ?>
 					</a>
 					<ul class="dropdown-menu">
+            <?php if(!isset($_SESSION['user'])) {?>
 						<li><a class="dropdown-item" href="?page=login"><?php t("Log in"); ?></a></li>
 						<li><a class="dropdown-item" href="?page=signup"><?php t("Sign up"); ?></a></li>
-						<?php if(isset($_SESSION['user'])) {?><li><a class="dropdown-item" href="?page=logout"><?php t("Log out"); ?></a></li><?php } ?>
+						<?php } else {?>
+            <li><a class="dropdown-item" href="?page=logout"><?php t("Log out"); ?></a></li>
+            <?php } ?>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="?page=contact"><?php t("Imprint"); ?></a></li>
 						<li><a class="dropdown-item" href="?page=contact"><?php t("Data protection"); ?></a></li>

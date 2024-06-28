@@ -1,9 +1,5 @@
 <?php
 session_start();
-//$_SESSION['allow'] = true;
-if(isset($_GET["allowme"])) $_SESSION["allow"] = 1;
-if(!isset($_SESSION['allow']))
-	die("coming soon...");
 
 include_once "db/connect.php";
 include_once "db/words.php";
@@ -28,8 +24,8 @@ if(isset($_GET['lang'])){
 }
 $langid = 1;
 if($lang == "en") $langid = 2;
-if($lang == "iiooen") $langid = 1;
-if($lang == "iioode") $langid = 2;
+if($lang == "iioode") $langid = 1;
+if($lang == "iiooen") $langid = 2;
 
 function translatep($en, $lang, $param) {
 	$tr = translate($en, $lang);
@@ -56,7 +52,8 @@ function translate($en, $lang) {
 			"Data protection" => "Datenschutz",
 			"Search in % words" => "Suche in % Wörtern",
 			"iiooqas" => "iiooqas",
-			"added on" => "hinzugefügt am"
+			"added on" => "hinzugefügt am",
+			"Translations" => "Übersetzungen"
 		),
 		"iiooen" => array(
 			"Dictionary" => "nufterogli",
@@ -69,7 +66,8 @@ function translate($en, $lang) {
 			"Automatic" => "lavtras",
 			"Search in % words" => "gachtaan za % hitiré",
 			"iiooqas" => "iioofikial",
-			"added on" => "alitrapat gittra"
+			"added on" => "alitrapat gittra",
+			"Translations" => "takavané"
 		)
 	);
 	$translations["iioode"] = $translations["iiooen"];

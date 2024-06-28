@@ -24,7 +24,7 @@
 			</div>
 		</form>
 		<div class="col-12">
-			<p><a href="?page=register">Register here</a> | <a href="index.php">Back</a></p>
+			<p><a href="?page=signup">Register here</a> | <a href="index.php">Back</a></p>
 		</div>
 		<?php } else {
 			if(verifyCredentials($_POST['uname'], $_POST['pwd'])){
