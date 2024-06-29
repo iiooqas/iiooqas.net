@@ -67,9 +67,9 @@ echo "<script>var words = Object.values(".json_encode($words).").sort((a,b)=>a[0
 					</select>
 				</td>
 				<td><select id="sprache0" class="form-control">
-					<option value="de">Deutsch
-					<option value="en">Englisch
-					<option value="eo">Esperanto
+					<option value="1">Deutsch
+					<option value="2">Englisch
+					<option value="3">Esperanto
 					</select>
 				</td>
 				<td><select id="dictionarytype0" class="form-control">
@@ -317,7 +317,7 @@ function submit() {
 	function pad2(number) {
 		return (number < 10 ? '0' : '') + number;
 	}
-	var word = document.getElementById("iiooqisch").value;
+	var word = document.getElementById("iiooqisch").value.split("ä").join("á");
 	var result = {};
 	var date = new Date();
 	var dateString = date.getFullYear() + "-" + pad2(date.getMonth()+1) + "-" + pad2(date.getDate()) + " " + pad2(date.getHours()) + ":" + pad2(date.getMinutes()) + ":" + pad2(date.getSeconds());

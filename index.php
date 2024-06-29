@@ -113,8 +113,12 @@ function tp($en, $param) {
 <body>
 <?php
 include_once "header.php";
+?>
+<section class="section" style="padding-top:61px;">
+<?php
 include_once "pages/$page.php";
 ?>
+</section>
 <div style="position:fixed;left:0;bottom:0;"><a href="?page=contact">Datenschutz, Impressum</a></div>
 </body>
 </html><?php 

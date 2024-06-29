@@ -82,7 +82,7 @@
 <?php
 $active = ' active" aria-current="page';
 ?>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">iiooqas</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,9 +102,9 @@ $active = ' active" aria-current="page';
 				<li class="nav-item">
 					<a class="nav-link<?php echo $page == 'projects' ? $active : ''; ?>" href="?page=projects"><?php t("Projects"); ?></a>
 				</li>
-				<li class="nav-item">
+				<!--<li class="nav-item">
 					<a class="nav-link<?php echo $page == 'community' ? $active : ''; ?>" href="?page=community"><?php t("Community"); ?></a>
-				</li>
+				</li>-->
 			</ul>
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				<li class="nav-item dropdown">

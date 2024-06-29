@@ -23,28 +23,26 @@ var wortartOrderDisplay = {
 var highlightedWords = [];
 </script>
 
-<section class="section">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8">
-				<h1 class="title"><?php t("Dictionary"); ?></h1>
-			</div>
-			<div class="col-md-4">
-				<?php if(isset($_SESSION['user'])){ ?>
-					<a href="?page=add_word" class="btn btn-primary"><?php t("Add word"); ?></a>
-				<?php } ?>
-			</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<h1 class="title"><?php t("Dictionary"); ?></h1>
 		</div>
-		<div class="field">
-			<div class="control">
-				<input style="font-size:25px;height:47px;width:100%;" class="input input-xl" type="text" placeholder="Text" id="suche" onchange="displayWorterbuch();" onkeyup="displayWorterbuch();"/>
-			</div>			
+		<div class="col-md-4">
+			<?php if(isset($_SESSION['user'])){ ?>
+				<a href="?page=add_word" class="btn btn-primary"><?php t("Add word"); ?></a>
+			<?php } ?>
 		</div>
-	<table class="table is-hoverable is-fullwidth" id="worterbuch">
-	</table>
+	</div>
+	<div class="field">
+		<div class="control">
+			<input style="font-size:25px;height:47px;width:100%;" class="input input-xl" type="text" placeholder="Text" id="suche" onchange="displayWorterbuch();" onkeyup="displayWorterbuch();"/>
+		</div>			
+	</div>
+	<table class="table is-hoverable is-fullwidth" id="worterbuch"></table>
 	<div id="stats"></div>
 </div>
-</section>
+
 <script>
 var direction = 0; //order of iioo and lang columns
 function swap() {
